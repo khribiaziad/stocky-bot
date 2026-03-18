@@ -1,9 +1,6 @@
-import makeWASocket, {
-  useMultiFileAuthState,
-  DisconnectReason,
-  fetchLatestBaileysVersion,
-  makeCacheableSignalKeyStore,
-} from 'baileys'
+import baileys from 'baileys'
+const makeWASocket = baileys.default ?? baileys
+const { useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } = baileys
 import pino from 'pino'
 import QRCode from 'qrcode'
 import { handleMessage, clearStoreCache } from './bot.js'
