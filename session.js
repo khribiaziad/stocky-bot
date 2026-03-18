@@ -4,7 +4,7 @@ import pino from 'pino'
 import QRCode from 'qrcode'
 import { handleMessage, clearStoreCache } from './bot.js'
 
-const logger = pino({ level: 'silent' })
+const logger = pino({ level: 'warn' })
 
 export class Session {
   constructor(storeId, config) {
@@ -45,16 +45,21 @@ export class Session {
 
       if (connection === 'close') {
         const code = lastDisconnect?.error?.output?.statusCode
+        const reason = lastDisconnect?.error?.message || 'unknown'
         const loggedOut = code === DisconnectReason.loggedOut
+        console.log(`[${this.storeId}] Connection closed — code: ${code}, reason: ${reason}, loggedOut: ${loggedOut}`)
         this.status = 'disconnected'
         this.qrData = null
         if (!loggedOut && !this._stopped) {
+          console.log(`[${this.storeId}] Reconnecting in 5s...`)
           setTimeout(() => this.start(), 5000)
         }
       } else if (connection === 'open') {
         this.status = 'connected'
         this.qrData = null
         console.log(`✅ [${this.storeId}] WhatsApp connected`)
+      } else if (connection) {
+        console.log(`[${this.storeId}] Connection state: ${connection}`)
       }
     })
 
