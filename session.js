@@ -1,5 +1,9 @@
-import pkg from '@whiskeysockets/baileys'
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore } = pkg
+import makeWASocket, {
+  useMultiFileAuthState,
+  DisconnectReason,
+  fetchLatestBaileysVersion,
+  makeCacheableSignalKeyStore,
+} from 'baileys'
 import pino from 'pino'
 import QRCode from 'qrcode'
 import { handleMessage, clearStoreCache } from './bot.js'
