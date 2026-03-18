@@ -26,10 +26,7 @@ export class Session {
     this.sock = makeWASocket({
       version,
       logger,
-      auth: {
-        creds: state.creds,
-        keys: makeCacheableSignalKeyStore(state.keys, logger),
-      },
+      auth: state,
       browser: ['Stocky Bot', 'Chrome', '1.0.0'],
       markOnlineOnConnect: false,
     })
